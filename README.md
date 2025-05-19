@@ -1,16 +1,33 @@
 ## Install cost-analyzer via helm charts
 
 ```bash
-helm install kubecost cost-analyzer \
---repo https://kubecost.github.io/cost-analyzer/ \
---namespace kubecost --create-namespace
-```
+helm repo add kubecost https://kubecost.github.io/cost-analyzer
+helm install kubecost kubecost/cost-analyzer \
+  --namespace kubecost --create-namespace
 
-## Install ingress controller:
+```
 
 ```bash
 kubectl apply -f https://raw.githubusercontent.com/kubernetes/ingress-nginx/controller-v1.9.4/deploy/static/provider/cloud/deploy.yaml
 ```
+
+```bash
+kubectl get svc ingress-nginx-controller -n ingress-nginx
+```
+
+## Install cert-manager
+
+```bash
+kubectl apply -f https://github.com/cert-manager/cert-manager/releases/latest/download/cert-manager.yaml
+```
+
+## Apply ClusterIssuer
+
+```bash
+kubectl apply -f cluster-issuer.yaml
+```
+
+## Install ingress controller:
 
 ### Change ingress host value in kubecost-ingress.yaml to address of ingress controler EXTERNAL-IP
 
