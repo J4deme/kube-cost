@@ -1,0 +1,10 @@
+server:
+  ingress:
+    enabled: true
+    ingressClassName: nginx
+    hosts:
+      - prometheus.132.220.50.171.nip.io
+    tls:
+      - secretName: prometheus-tls
+        hosts:
+          - prometheus.132.220.50.171.nip.io

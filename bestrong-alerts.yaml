@@ -1,0 +1,34 @@
+apiVersion: monitoring.coreos.com/v1
+kind: PrometheusRule
+metadata:
+  name: bestrong-alerts
+  namespace: monitoring
+  labels:
+    Release: kube-prometheus
+spec:
+  groups:
+    - name: bestrong-api-alerts
+      rules:
+        - alert: BeStrongHighCPUUsage
+          expr: |
+            rate(container_cpu_usage_seconds_total{container="bestrong", namespace="your-app-namespace"}[5m])
+            / 
+            container_spec_cpu_quota{container="bestrong", namespace="your-app-namespace"} > 0.7
+          for: 2m
+          labels:
+            severity: warning
+          annotations:
+            summary: "High CPU usage on BeStrong API"
+            description: "BeStrong API is using >70% CPU for more than 2 minutes."
+
+        - alert: BeStrongHighMemoryUsage
+          expr: |
+            container_memory_usage_bytes{container="bestrong", namespace="your-app-namespace"}
+            / 
+            container_spec_memory_limit_bytes{container="bestrong", namespace="your-app-namespace"} > 0.7
+          for: 2m
+          labels:
+            severity: warning
+          annotations:
+            summary: "High memory usage on BeStrong API"
+            description: "BeStrong API is using >70% memory for more than 2 minutes."

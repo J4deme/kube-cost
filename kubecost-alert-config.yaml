@@ -1,0 +1,22 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: kubecost-alert-config
+  namespace: kubecost
+data:
+  alerts.json: |
+    [
+      {
+        "alertName": "HighDailyCost",
+        "threshold": 20,
+        "aggregation": "total",
+        "window": "day",
+        "type": "budget",
+        "channels": [
+          {
+            "type": "slack",
+            "endpoint": "https://hooks.slack.com/services/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"
+          }
+        ]
+      }
+    ]

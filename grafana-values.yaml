@@ -1,0 +1,9 @@
+ingress:
+  enabled: true
+  ingressClassName: nginx
+  hosts:
+    - grafana.132.220.50.171.nip.io
+  # tls:
+  #   - secretName: grafana-tls
+  #     hosts:
+  #       - grafana.132.220.50.171.nip.io
