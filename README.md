@@ -53,7 +53,7 @@ helm install kubecost kubecost/cost-analyzer -n kubecost --create-namespace \
   --set kubecostToken="aGVsbUBrdWJlY29zdC5jb20=xm343yadf98"
 ```
 
-![Alt text](image1.png)
+![Alt text](img/image1.png)
 
 ## Apply kubecost-ingress.yaml to make it accesible
 
@@ -61,7 +61,7 @@ helm install kubecost kubecost/cost-analyzer -n kubecost --create-namespace \
 kubectl apply -f kubecost-ingress.yaml
 ```
 
-![Alt text](image2.png)
+![Alt text](img/image2.png)
 
 ## Create basic authentication for kubecost
 
@@ -69,7 +69,7 @@ kubectl apply -f kubecost-ingress.yaml
 kubectl apply -f kubecost-basic-auth.yaml
 ```
 
-![Alt text](image3.png)
+![Alt text](img/image3.png)
 
 ## Apply .yaml files for alerts in prometheus
 
@@ -79,9 +79,9 @@ kubectl apply -f alertmanager-config.yaml
 kubectl apply -f bestrong-alerts.yaml
 ```
 
-![Alt text](image.png)
+![Alt text](img/image.png)
 
-![Alt text](image4.png)
+![Alt text](img/image4.png)
 
 ### Demo of created services:
 
