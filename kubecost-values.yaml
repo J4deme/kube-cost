@@ -1,0 +1,41 @@
+global:
+  grafana:
+    enabled: true
+    namespaceOverride: kubecost
+
+ingress:
+  enabled: true
+  className: nginx
+  annotations:
+    nginx.ingress.kubernetes.io/ssl-redirect: "true"
+  hosts:
+    - kubecost.128.251.178.137.nip.io
+  tls:
+    - secretName: kubecost-tls
+      hosts:
+        - kubecost.128.251.178.137.nip.io
+
+networkCosts:
+  enabled: true
+
+notifications:
+  alertConfigs:
+    alerts:
+    - type: budget
+      threshold: 20
+      window: 1d
+      aggregation: namespace
+      filter: default
+      slackWebhookUrl: https://hooks.slack.com/services/###
+
+kubecostProductConfigs:
+  cloudIntegration:
+    azure:
+      enabled: true
+      useSecret: true
+      secretName: kubecost-azure
+  customPrices:
+    azure:
+      Standard_B2s:
+        region: westeurope
+        cost: 0.02

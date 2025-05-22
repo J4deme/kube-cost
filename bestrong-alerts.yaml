@@ -2,18 +2,16 @@ apiVersion: monitoring.coreos.com/v1
 kind: PrometheusRule
 metadata:
   name: bestrong-alerts
-  namespace: monitoring
+  namespace: default
   labels:
-    Release: kube-prometheus
+    release: prometheus
 spec:
   groups:
     - name: bestrong-api-alerts
       rules:
         - alert: BeStrongHighCPUUsage
           expr: |
-            rate(container_cpu_usage_seconds_total{container="bestrong", namespace="your-app-namespace"}[5m])
-            / 
-            container_spec_cpu_quota{container="bestrong", namespace="your-app-namespace"} > 0.7
+            rate(container_cpu_usage_seconds_total{container="bestrong", namespace="default"}[5m]) > 0.14
           for: 2m
           labels:
             severity: warning
@@ -23,9 +21,7 @@ spec:
 
         - alert: BeStrongHighMemoryUsage
           expr: |
-            container_memory_usage_bytes{container="bestrong", namespace="your-app-namespace"}
-            / 
-            container_spec_memory_limit_bytes{container="bestrong", namespace="your-app-namespace"} > 0.7
+            container_memory_usage_bytes{container="bestrong",namespace="default"} > 180
           for: 2m
           labels:
             severity: warning
